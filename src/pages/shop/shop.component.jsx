@@ -2,6 +2,7 @@ import React from 'react';
 import './shop.styles.scss';
 import SHOP_DATA from './shop.data';
 
+import {withRouter} from 'react-router-dom';
 import CollectionPreview from '../../components/collection-preview/collection-preview.component';
 class ShopPage extends React.Component{
     constructor(){
@@ -9,13 +10,15 @@ class ShopPage extends React.Component{
         this.state={
             collections:SHOP_DATA
         }
+        
     }
     render(){
         const { collections} =this.state;
+        console.log(this.props.match.params)
         return (
             <div>
                 {
-                    collections.map(({id,...otherCollectionProps})=>(
+                    collections.filter(({title})=>title.toLowerCase()=='hats').map(({id,...otherCollectionProps})=>(
                         <CollectionPreview key={id} {...otherCollectionProps}/>
 
                     ))
@@ -26,4 +29,4 @@ class ShopPage extends React.Component{
     }
 
 }
-export default ShopPage;
+export default withRouter(ShopPage);
